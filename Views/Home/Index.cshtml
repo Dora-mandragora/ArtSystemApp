@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class = "content">
+    <div class = "cover">
+        <div class = "user-info">
+            <img />
+            <div class = "text-info">
+                <h2>Name</h2>
+                <p>Description</p>
+            </div>
+        </div>
+        <div class = "sub-action-buttons">
+            <button class = "btn btn-outline-dark">Следить</button>
+            <button class = "btn btn-outline-dark">Подписаться</button>
+        </div>
+    </div>
+
+    <div class = "main-info">
+        <div class = "full-description">
+
+        </div>
+        @for(int i = 0; i<3; i++)   
+        {
+            <div class = "describe-info">
+                <h3>Name</h3>
+                <img />
+                <p>Decription</p>
+                <div class = "describe-container">
+                    Price
+                    <button class = "btn btn-outline-dark">Подписаться</button>
+                </div>
+            </div>
+        }
+
+        @for(int i = 0; i<3; i++)
+        {
+            //добавить js код, который будет скрывать картинку, если не оформлена соотв. подписка
+            <div class = "publication">
+                <img />
+            </div> 
+        }
+    </div>
+</div>

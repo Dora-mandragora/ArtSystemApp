@@ -1,0 +1,22 @@
+﻿
+.main-info{
+    display: flex;
+    justify-content:  space-around;
+}
+
+.describe-info{
+    border: 2px solid #2f2f2f;
+    border-radius: 10px;
+
+    width: 30%;
+    height: 20%;
+    padding: 10px 20px; 
+    margin: 20px;
+}
+
+.describe-container
+{
+    display: flex;
+    justify-content:  space-around;
+}
+
