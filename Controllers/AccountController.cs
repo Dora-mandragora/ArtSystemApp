@@ -46,7 +46,7 @@ namespace ArtSystemApp.Controllers
                     if (user.Status.Id == 2)
                         ModelState.AddModelError("", "Пользователь заблокирован");
                     else
-                        return RedirectToAction("", "Home");
+                        return RedirectToAction("Home", "Home");
                 }
                 else ModelState.AddModelError("", "Неверный логин или пароль");
             }
@@ -90,10 +90,14 @@ namespace ArtSystemApp.Controllers
                         Role = _context.Roles.FirstOrDefault(r => r.Name == "user")
                     };
 
-                    _context.Add(user);
+                    Access freeAccess = new() {Name = "free", Price = 0, User = user, Description = null };
+
+                    _context.Users.Add(user);
+                    _context.Accesses.Add(freeAccess);
+
                     await _context.SaveChangesAsync();
                     await Authenticate(user);
-                    return RedirectToAction("", "Home");
+                    return RedirectToAction("Home", "Home");
                 }
                 ModelState.AddModelError("", "Пользователь с таким логином уже существует");
             }
@@ -103,7 +107,7 @@ namespace ArtSystemApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("", "Home");
+            return RedirectToAction("Login", "Home");
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿@model ArtSystemApp.ViewModels.AddSubscriptionModel
+
+<div class = "work-add">
+<h1>Добавить новую подписку</h1>    
+
+    <h4>Название</h4>
+    <input asp-for = "Name" class = "form-control"/>
+    <h4>Описание</h4>
+    <textarea class = "form-control" type = "text" cols = "100" maxlength = "255" asp-for = "Description"></textarea>
+    <h4>Цена</h4>
+    <input asp-for = "Price" class = "form-control" type = "number"/>
+    <div class = "buttons-block">
+        <button class = "btn btn-outline-dark">Готово</button>
+        <button class = "btn btn-outline-dark">Отмена</button>
+    </div>
+</div>

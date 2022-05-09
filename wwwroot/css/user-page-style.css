@@ -1,10 +1,18 @@
 ﻿
-.main-info{
-    display: flex;
-    justify-content:  space-around;
+h1{
+    margin-bottom: 32px;
 }
 
-.describe-info{
+.buttons-block button {
+    margin: 16px 16px 0 0;
+}
+
+.subscriptions-block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subscribe-info{
     border: 2px solid #2f2f2f;
     border-radius: 10px;
 
@@ -14,9 +22,32 @@
     margin: 20px;
 }
 
-.describe-container
-{
+.subscribe-container, .publications-add-work{
     display: flex;
-    justify-content:  space-around;
+    justify-content: space-around;
 }
+
+.add-subscription-button{
+    width: 30%;
+    height: 20%;
+    padding: 10px 20px;
+    margin: 20px;
+}
+
+.image-description-block, .buttons-block{
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.buttons-authorization-block {
+    display: flex;
+    justify-content: center;
+}
+.buttons-authorization-block button {
+    margin: 16px 16px 16px 0;
+}
+
+
+
 

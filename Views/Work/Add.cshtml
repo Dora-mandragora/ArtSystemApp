@@ -1,0 +1,55 @@
+﻿@model ArtSystemApp.ViewModels.AddWorkModel
+
+<div class = "work-add">
+<h1>Добавить новую работу</h1>
+    <div class = "image-description-block">
+        <input asp-for = "Image" type = "file" />
+
+        <div class = "work-add-description">
+            <h4>Описание</h4>
+            <textarea class = "form-control" type = "text" cols = "100" maxlength = "255" asp-for = "Description"></textarea>
+        </div>
+    </div>
+
+    <h4>Название</h4>
+    <input asp-for = "Name" class = "form-control"/>
+    <h4>Тема</h4>
+    <input asp-for = "Theme" class = "form-control"/>
+
+    @{/*css flex
+     * VIewBag - варианты подписок
+     *         - подтвержден ли аккаунт
+     *         - виды тем
+     * */}
+    <div class = "work-add-access">        
+       <h3>Варианты доступа</h3>
+            <div class = "subscriptions-block">
+            @{/*foreach(var i in ViewBag.Accesses)*/}            
+                <div class = "subscribe-info">
+                    <h4>Бесплатно</h4>
+                    <img />
+                    <p>Доступ к работам по бесплатной подписке</p>
+                    <div class = "subscribe-container">
+                        0 $
+                        <button class = "btn btn-outline-dark">Выбрать</button>
+                    </div>
+                </div>
+            
+            @{/*js код - выбрать можно только один вариант, отключать остальные*/}
+        
+            @{/*if (ViewBag.IsConfirm)*/}
+            @if(true)
+            {
+                <button class = "btn btn-outline-dark add-subscription-button">Добавить</button>
+            }
+            else
+            {
+                @:Подтвердите аккаунт для добавления подписки
+            }
+            </div>
+    </div>
+    <div class = "buttons-block">
+        <button class = "btn btn-outline-dark">Готово</button>
+        <button class = "btn btn-outline-dark">Отмена</button>
+    </div>
+</div>

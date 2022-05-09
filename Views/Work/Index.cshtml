@@ -1,0 +1,11 @@
+﻿@model ArtSystemApp.Models.Work
+
+
+@if(Model.Access.Price == 0)
+{
+    <div class = "work-content">
+        <img src="@Url.Action("GetImage", "Work", new {id = @Model.Id})"/>
+        <h3>Тема @Model.Theme</h3>
+        <p> Описание @Model.Description</p>
+    </div>
+}

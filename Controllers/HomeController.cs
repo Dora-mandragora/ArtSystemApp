@@ -18,8 +18,15 @@ namespace ArtSystemApp.Controllers
             _context = context;
         }
 
-        [Authorize]
+        [HttpGet]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Home()
         {
             return View();
         }

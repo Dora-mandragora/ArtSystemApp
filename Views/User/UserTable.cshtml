@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ArtSystemApp.Models.User>
+
+<form method = "post" asp-action = "Define" asp-controller = "User">
+<table class = "table table-striped table-sortable">
+	<thead>
+	<tr class = "row">
+		<td class = "col">
+			<div class = "form-check">
+				<input type="checkbox" value="" id="checkAll">				
+			</div>	
+		</td>
+			<th class = "col">Id</th>
+			<th class = "col">Логин</th>
+			<th class = "col">Email</th>
+			<th class = "col">Роль</th>
+			<th class = "col">Статус аккаунта</th>
+			<th class = "col">Статус подтверждения аккаунта</th>
+		</tr>
+		</thead>
+		<tbody>
+	@foreach(var user in Model)
+	{
+		<tr class = "row">
+			<td class = "col">
+				<div class = "form-check">
+					<input class="checkbox" type="checkbox" name = "ids" id = "@user.Id" value ="@user.Id">
+				</div>
+			</td>
+			<td class = "col">@user.Id</td>
+			<td class = "col">@user.Login</td>
+			<td class = "col">@user.Email</td>
+			<td class = "col">@user.Role.Name</td>
+			<td class = "col">@user.Status.Name</td>
+			<td class = "col">@user.Confirmation.Name</td>
+		</tr>		
+	}
+	</tbody>
+</table>
+<div class = "btn-toolbar">	
+		<div class = "form-group buttons-block">
+			<button type = "submit" class ="btn btn-outline-dark btn-group" name = "button" value = "block_button" >Заблокировать</button>
+		<!--Может сделать один метод, который принимает массив и id кнопки, а потом перенаправляет на тот метод, под который id заточен-->
+			<button class ="btn btn-outline-dark btn-group" name = "button" value = "unblock_button">Разблокировать</button>
+			<button class ="btn btn-outline-dark btn-group" name = "button" value = "delete_button">Удалить</button>
+			<button class ="btn btn-outline-dark btn-group" name = "button" value = "confirm_button">Подтвердить</button>
+			<button class ="btn btn-outline-dark btn-group" name = "button" value = "unconfirm_button">Отменить подтверждение</button>
+		</div> 
+		</form> <!--Пока работает только для одной кнопки - надо сделать для нескольких-->
+</div>
