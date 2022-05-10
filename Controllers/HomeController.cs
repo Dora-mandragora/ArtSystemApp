@@ -1,6 +1,7 @@
 ﻿using ArtSystemApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -19,16 +20,38 @@ namespace ArtSystemApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            return View();
+            if(id == null) return NotFound();
+            else
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+                user.Accesses = await _context.Accesses.Where(a => a.User.Id == user.Id).ToListAsync();
+                user.Works = await _context.Works.Where(w => w.User.Id == user.Id).ToListAsync();
+                user.Confirmation = await _context.Confirmations.FirstOrDefaultAsync(c => c.Users.Contains(user));
+                user.Role = await _context.Roles.FirstOrDefaultAsync(r => r.Users.Contains(user));
+                return View(user);
+            }           
         }
 
         [Authorize]
         [HttpGet]
-        public IActionResult Home()
+        public async Task<IActionResult> Home()
         {
-            return View();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == User.Identity.Name);
+            user.Accesses = await _context.Accesses.Where(a => a.User == user).ToListAsync();
+            user.Works = await _context.Works.Where(w => w.User == user).ToListAsync();
+            user.Confirmation= await _context.Confirmations.FirstOrDefaultAsync(c => c.Users.Contains(user));
+            user.Role = await _context.Roles.FirstOrDefaultAsync(r => r.Users.Contains(user));
+            return View(user);
+        }
+
+        public async Task<IActionResult> SendRequest()
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == User.Identity.Name);
+            user.Confirmation = await _context.Confirmations.FirstOrDefaultAsync(c => c.Name == "await");
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Home");
         }
 
         public IActionResult Privacy()

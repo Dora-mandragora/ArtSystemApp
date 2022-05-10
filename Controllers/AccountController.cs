@@ -90,7 +90,7 @@ namespace ArtSystemApp.Controllers
                         Role = _context.Roles.FirstOrDefault(r => r.Name == "user")
                     };
 
-                    Access freeAccess = new() {Name = "free", Price = 0, User = user, Description = null };
+                    Access freeAccess = new() {Name = "Бесплатно", Price = 0, User = user, Description = "Доступ к работам по бесплатной подписке" };
 
                     _context.Users.Add(user);
                     _context.Accesses.Add(freeAccess);
@@ -107,7 +107,7 @@ namespace ArtSystemApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

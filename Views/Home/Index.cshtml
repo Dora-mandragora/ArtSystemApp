@@ -1,8 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-    //это представление для потенциального подписчика
-}
-
+﻿
 @model ArtSystemApp.Models.User
 
 <div class = "content">
@@ -11,8 +7,8 @@
         <div class = "user-info">
             <img />
             <div class = "text-info">
-                <h2>Admin</h2>
-                <p>Аккаунт администратора для тестирования основных функций</p>
+                <h2>@Model.Login</h2>
+                <p>@Model.Description</p>
             </div>
         </div>
         <div class = "sub-action-buttons">
@@ -29,36 +25,42 @@
 
         <div class = "subscriptions">
             <h2>Варианты подписки</h2>
-            <div class = "subscriptions-block">
-            @for(int i = 0; i<1; i++)   
+            <div class = "subscriptions-block">            
+             @foreach(var accs in Model.Accesses)  
             {
                 <div class = "subscribe-info">
-                    <h4>Бесплатно</h4>
-                    <img />
-                    <p>Доступ к работам по бесплатной подписке</p>
-                    <div class = "subscribe-container">
-                        0 $
-                        <button class = "btn btn-outline-dark">Подписаться</button>
+                    <div class = "name-buttons">
+                        <h4>@accs.Name</h4>                        
                     </div>
-                </div>                
+                    <img />
+                    <p>@accs.Description</p>
+                    <div class = "subscribe-container">
+                        @accs.Price $                        
+                    </div>
+                </div>
             }
             </div>
         </div>
 
         <div class = "publications"> 
-            <h2>Последние публикации</h2>
-            Пока пользователь не выкладывал работы.
+            <h2>Последние публикации</h2>           
             <div class = "publications-block">
-                @for(int i = 0; i<0; i++)
+                @if(Model.Works.Count == 0)
                 {
-                    //добавить js код, который будет скрывать картинку, если не оформлена соотв. подписка
-                    <div class = "publication">
-                        <img />
-                        <div class = "description-block">
-                            <h6>Тема</h6>
-                            <p>Описание</p>
-                        </div>
-                    </div> 
+                    @:Пока пользователь не выкладывал работы.                    
+                }
+                else
+                {
+                    @for(int i = 0; i<Model.Works.Count; i++)
+                    {
+                        <div class = "publication">
+                            <img />
+                            <div class = "description-block">
+                                <h6>Тема</h6>
+                                <p>Описание</p>
+                            </div>
+                        </div> 
+                    }
                 }
             </div>
         </div>

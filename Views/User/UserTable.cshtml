@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<ArtSystemApp.Models.User>
 
+<a href = "~/Home/Home">Назад</a>
+
 <form method = "post" asp-action = "Define" asp-controller = "User">
 <table class = "table table-striped table-sortable">
 	<thead>
@@ -27,7 +29,7 @@
 				</div>
 			</td>
 			<td class = "col">@user.Id</td>
-			<td class = "col">@user.Login</td>
+			<td><a href = "~/Home/Index/@user.Id">@user.Login</a></td>
 			<td class = "col">@user.Email</td>
 			<td class = "col">@user.Role.Name</td>
 			<td class = "col">@user.Status.Name</td>
