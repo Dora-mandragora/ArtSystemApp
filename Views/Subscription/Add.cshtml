@@ -1,5 +1,6 @@
 ﻿@model ArtSystemApp.ViewModels.AddSubscriptionModel
 
+<form asp-action = "add" asp-controller = "Subscription" method = "post">
 <div class = "work-add">
 <h1>Добавить новую подписку</h1>    
 
@@ -8,9 +9,12 @@
     <h4>Описание</h4>
     <textarea class = "form-control" type = "text" cols = "100" maxlength = "255" asp-for = "Description"></textarea>
     <h4>Цена (в $)</h4>
-    <input asp-for = "Price" class = "form-control" type = "number"/>
+    <input asp-for = "Price" class = "form-control" type = "number" value = 0 />
     <div class = "buttons-block">
         <button class = "btn btn-outline-dark">Готово</button>
-        <button class = "btn btn-outline-dark">Отмена</button>
+        </form>
+        <form asp-action = "Privacy" asp-controller = "Home">
+            <button class = "btn btn-outline-dark">Отмена</button>
+        </form>    
     </div>
 </div>

@@ -1,7 +1,9 @@
 ﻿using ArtSystemApp.Models;
+using ArtSystemApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -111,6 +113,49 @@ namespace ArtSystemApp.Controllers
             await _context.SaveChangesAsync();
 
             return Content("Ok");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            ViewBag.User = await _context.Users.FirstOrDefaultAsync(u => u.Login == User.Identity.Name);            
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditUserModel model)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == User.Identity.Name);
+            if (ModelState.IsValid)
+            {
+                byte[] imageData = null;
+                Picture picture = null;
+                if (model.Image != null)
+                {
+                    using (var binaryReader = new BinaryReader(model.Image.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.Image.Length);
+                    }
+                    picture = new()
+                    {
+                        Format = new Format { Type = "png" },
+                        Img = imageData
+                    };
+                    _context.Pictures.Remove(user.Image);
+                    user.Image = picture;
+                    _context.Pictures.Add(picture);
+                }
+                else ModelState.AddModelError("", "Email не правильного формата");
+                if (model.Login != null) user.Login = model.Login;
+                if (model.Email != null) user.Email = model.Email;
+                if (model.Description != null) user.Description = model.Description;
+
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Home", "Home");
+
+            }
+            return View(model);
         }
     }
 }

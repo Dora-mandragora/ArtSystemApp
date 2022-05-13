@@ -1,0 +1,29 @@
+﻿@model ArtSystemApp.ViewModels.AddSubscriptionModel
+
+<form asp-action = "Edit" asp-controller = "Subscription" method = "post">
+<div class = "work-add">
+<h1>Изменить подписку</h1>    
+<input type = "hidden" name = "acc_id" value = @ViewBag.Access.Id />
+    <h4>Название</h4>
+    @if(ViewBag.Access.Name != null)
+        {
+            @:Старое название: @ViewBag.Access.Name            
+        }
+    <input asp-for = "Name" class = "form-control"/>
+    <h4>Описание</h4>
+    @if(@ViewBag.Access.Description != null)
+        {
+            @:Старое описание: @ViewBag.Access.Description             
+        }
+    <textarea class = "form-control" type = "text" cols = "100" maxlength = "255" asp-for = "Description"></textarea>
+    <h4>Цена (в $)</h4>   
+     Старая цена: @ViewBag.Access.Price                   
+    <input asp-for = "Price" class = "form-control" type = "number" value = 0/>
+    <div class = "buttons-block">
+        <button class = "btn btn-outline-dark">Готово</button>
+        </form>
+        <form asp-action = "Privacy" asp-controller = "Home">
+            <button class = "btn btn-outline-dark">Отмена</button>
+        </form>    
+    </div>
+</div>

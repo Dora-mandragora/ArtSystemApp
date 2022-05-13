@@ -1,0 +1,34 @@
+﻿@model ArtSystemApp.ViewModels.EditUserModel
+
+<form asp-action = "Edit" asp-controller = "User" method = "post" enctype="multipart/form-data">
+    
+            <h1>Изменить данные</h1>
+            <div class = "image-description-block">
+                <div class = "img-container">
+                    @if(@ViewBag.User.Image != null)
+                    {
+                        <img src="@Url.Action("GetImage", "Work", new {id = @ViewBag.User.Image.Id})" />                
+                    }
+                    <label>Изменить аватар</label>
+                    <input name = "image" asp-for = "Image" type = "file" accept = "image/png"/>
+                </div>
+                <div class = "work-add-description">
+                    <h4>Логин</h4>
+                    Старый логин: @ViewBag.User.Login
+                    <input asp-for = "Login" class = "form-control"/>
+                    <h4>Email</h4>
+                    Старый Email: @ViewBag.User.Email
+                    <input asp-for = "Email" class = "form-control"/>
+                </div>
+            </div>
+            <h4>Описание аккаунта</h4>
+            Старое описание: @ViewBag.User.Description
+                    <textarea class = "form-control" type = "text" cols = "100" maxlength = "255" asp-for = "Description">@ViewBag.User.Description</textarea>            
+         
+            <div class = "buttons-block">
+                <button class = "btn btn-outline-dark">Готово</button>
+                </form>
+                <form asp-action = "Privacy" asp-controller = "Home">
+                    <button class = "btn btn-outline-dark">Отмена</button>
+                </form>
+            </div>        

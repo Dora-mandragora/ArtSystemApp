@@ -40,7 +40,7 @@ namespace ArtSystemApp.Controllers
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == User.Identity.Name);
             user.Accesses = await _context.Accesses.Where(a => a.User == user).ToListAsync();
-            user.Works = await _context.Works.Where(w => w.User == user).ToListAsync();
+            user.Works = await _context.Works.Where(w => w.User == user).ToListAsync();            
             user.Confirmation= await _context.Confirmations.FirstOrDefaultAsync(c => c.Users.Contains(user));
             user.Role = await _context.Roles.FirstOrDefaultAsync(r => r.Users.Contains(user));
             return View(user);
@@ -56,7 +56,7 @@ namespace ArtSystemApp.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            return RedirectToAction("Home", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

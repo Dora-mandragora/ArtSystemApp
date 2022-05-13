@@ -1,11 +1,10 @@
 ﻿@model ArtSystemApp.ViewModels.AddWorkModel
 
-
-<form asp-action = "Add" asp-controller = "Work" method = "post" enctype="multipart/form-data">
-    
-            <h1>Добавить новую работу</h1>
+<form asp-action = "Add" asp-controller = "Work" method = "post" enctype="multipart/form-data>
+    <div class = "work-add">
+        <h1>Добавить новую работу</h1>
             <div class = "image-description-block">
-            <input name = "image" asp-for = "Image" type = "file" accept = "image/png"/>
+                <input asp-for = "Image" type = "file" accept = "image/png"/>
 
                 <div class = "work-add-description">
                     <h4>Описание</h4>
@@ -17,7 +16,11 @@
             <input asp-for = "Name" class = "form-control"/>
             <h4>Тема</h4>
             <input asp-for = "Theme" class = "form-control"/>
-         <div class = "work-add-access">        
+            
+            @{/*css flex
+             * VIewBag - варианты подписок                 
+             * */}
+            <div class = "work-add-access">        
                <h3>Варианты доступа</h3>
                     <div class = "subscriptions-block">
                     @foreach(var accs in ViewBag.Accesses)
@@ -28,11 +31,7 @@
                             <p>@accs.Description</p>
                             <div class = "subscribe-container">
                                 @accs.Price $
-                                <input class = "button btn btn-outline-dark" name = "accs-buttons" id = @accs.Id value = "Выбрать" type = "hidden"/> 
-                                @if(ViewBag.IsConfirm)
-                                {
-                                    @Html.RadioButton("acc", (int)@accs.Id)                            
-                                }
+                                <input class = "button btn btn-outline-dark" id = @accs.Id value = "Выбрать"/>                       
                             </div>
                         </div>
                     }
@@ -42,10 +41,7 @@
             </div>
             <div class = "buttons-block">
                 <button class = "btn btn-outline-dark">Готово</button>
-                </form>
-                <form asp-action = "Privacy" asp-controller = "Home">
-                    <button class = "btn btn-outline-dark">Отмена</button>
-                </form>
+                <button class = "btn btn-outline-dark">Отмена</button>
             </div>        
-
-                   
+    </div>
+</form>

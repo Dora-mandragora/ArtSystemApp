@@ -8,6 +8,6 @@ namespace ArtSystemApp.ViewModels
         public string Name { get; set; }
         public string Theme { get; set; }
         public IFormFile Image { get; set; }
-        public int Access { get; set; }
+        public int IdImage { get; set; }
     }
 }

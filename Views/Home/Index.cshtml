@@ -5,7 +5,10 @@
 
     <div class = "cover">
         <div class = "user-info">
-            <img />
+            @if(Model.Image != null)
+            {
+                <img src="@Url.Action("GetImage", "Work", new {id = @Model.Image.Id})"/>                
+            }
             <div class = "text-info">
                 <h2>@Model.Login</h2>
                 <p>@Model.Description</p>
@@ -51,15 +54,21 @@
                 }
                 else
                 {
-                    @for(int i = 0; i<Model.Works.Count; i++)
+                   @foreach(var work in Model.Works)
                     {
-                        <div class = "publication">
-                            <img />
-                            <div class = "description-block">
-                                <h6>Тема</h6>
-                                <p>Описание</p>
+                        <div class = "work-content">
+                            <div  class = "img-content-block">
+                                <a href = "~/Work/Index/@work.Id">
+                                    <img src="@Url.Action("GetImage", "Work", new {id = @work.Image.Id})"/>
+                                </a>       
                             </div>
-                        </div> 
+                        <h3>@work.Name</h3>
+                            @if (work.Theme != null)
+                            {
+                                <h4>@work.Theme.Name</h4>
+                            }
+                            <p>@work.Description</p>
+                        </div>
                     }
                 }
             </div>

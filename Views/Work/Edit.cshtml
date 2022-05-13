@@ -1,23 +1,33 @@
 ﻿@model ArtSystemApp.ViewModels.AddWorkModel
 
-
-<form asp-action = "Add" asp-controller = "Work" method = "post" enctype="multipart/form-data">
+<form asp-action = "Edit" asp-controller = "Work" method = "post" enctype="multipart/form-data">
     
-            <h1>Добавить новую работу</h1>
+            <h1>Изменить работу</h1>
             <div class = "image-description-block">
-            <input name = "image" asp-for = "Image" type = "file" accept = "image/png"/>
-
+            <img src="@Url.Action("GetImage", "Work", new {id = @ViewBag.Work.Image.Id})"/> 
                 <div class = "work-add-description">
                     <h4>Описание</h4>
-                    <textarea class = "form-control" type = "text" cols = "100" maxlength = "255" asp-for = "Description"></textarea>
+                    @if(@ViewBag.Work.Description != null)
+                    {
+                        @:Старое описание: @ViewBag.Work.Description             
+                    }
+                    <textarea class = "form-control" type = "text" cols = "100" maxlength = "255" asp-for = "Description">@ViewBag.Work.Description</textarea>
                 </div>
             </div>
-
+            <input type = "hidden" name = "img_id" value = @ViewBag.Work.Id />
             <h4>Название</h4>
+            @if(ViewBag.Work.Name != null)
+            {
+                @:Старое: @ViewBag.Work.Name
+            }
             <input asp-for = "Name" class = "form-control"/>
             <h4>Тема</h4>
+            @if(ViewBag.Work.Theme != null)
+            {
+                @:Старое: @ViewBag.Work.Theme.Name        
+            }
             <input asp-for = "Theme" class = "form-control"/>
-         <div class = "work-add-access">        
+            <div class = "work-add-access">        
                <h3>Варианты доступа</h3>
                     <div class = "subscriptions-block">
                     @foreach(var accs in ViewBag.Accesses)
@@ -28,16 +38,11 @@
                             <p>@accs.Description</p>
                             <div class = "subscribe-container">
                                 @accs.Price $
-                                <input class = "button btn btn-outline-dark" name = "accs-buttons" id = @accs.Id value = "Выбрать" type = "hidden"/> 
-                                @if(ViewBag.IsConfirm)
-                                {
-                                    @Html.RadioButton("acc", (int)@accs.Id)                            
-                                }
+                                <input class = "button btn btn-outline-dark" name = "accs-buttons" id = @accs.Id value = "Выбрать" type = "hidden"/>                                 
+                                @Html.RadioButton("acc", (int)@accs.Id)
                             </div>
                         </div>
-                    }
-            
-                    @{/*js код - выбрать можно только один вариант, отключать выбранный, включать остальные*/}                    
+                    }            
                     </div>
             </div>
             <div class = "buttons-block">

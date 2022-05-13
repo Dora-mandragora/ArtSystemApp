@@ -87,7 +87,8 @@ namespace ArtSystemApp.Controllers
                         Password = Hash.GetHashString(model.Password),
                         Confirmation = _context.Confirmations.FirstOrDefault(c => c.Name == "free"),
                         Status = _context.Statuses.FirstOrDefault(s => s.Name == "active"),
-                        Role = _context.Roles.FirstOrDefault(r => r.Name == "user")
+                        Role = _context.Roles.FirstOrDefault(r => r.Name == "user"),
+                        Image = _context.Pictures.FirstOrDefault(i => i.Id == 6)
                     };
 
                     Access freeAccess = new() {Name = "Бесплатно", Price = 0, User = user, Description = "Доступ к работам по бесплатной подписке" };

@@ -5,11 +5,17 @@
 
     <div class = "cover">
         <div class = "user-info">
-            <img />
+            @if(Model.Image != null)
+            {
+                <img src="@Url.Action("GetImage", "Work", new {id = @Model.Image.Id})"/>                
+            }
             <div class = "text-info">
                 <h2>@Model.Login</h2>
                 <p>@Model.Description</p>
-                
+                @Model.Email
+                <form asp-action = "Edit" asp-controller = "User" method = "get">
+                    <button class = "btn btn-outline-dark add-subscription-button">Изменить аккаунт</button>
+                </form>
             </div>
 
             @if(Model.Confirmation.Name == "free")            
@@ -52,8 +58,11 @@
                     <div class = "name-buttons">
                         <h4>@accs.Name</h4>
                         <div class = "small-buttons-block">
-                            <button class = "btn btn-outline-dark">E</button>
-                            <button class = "btn btn-outline-dark">D</button>
+                            <form asp-action = "Action" asp-controller = "Subscription" method = "get">
+                                <input name = "acc_id" value = @accs.Id type = "hidden"/>                                        
+                                <button class = "btn btn-outline-dark" name = "action_button" value = "edit">E</button>
+                                <button class = "btn btn-outline-dark" name = "action_button" value = "delete">D</button>
+                            </form>
                         </div>
                     </div>
                     <img />
@@ -65,7 +74,9 @@
             }
             @if(Model.Confirmation.Name == "paid")
             {
-                <button class = "btn btn-outline-dark add-subscription-button">Добавить</button>
+                <form asp-action = "Add" asp-controller = "Subscription" method = "get">
+                    <button class = "btn btn-outline-dark add-subscription-button">Добавить</button>
+                </form>
             }
             else
             {
@@ -77,7 +88,9 @@
         <div class = "publications"> 
             <div class = "publications-add-work">
                 <h2>Ваши последние публикации</h2>
-                <button class = "btn btn-outline-dark" asp-action = "Add" asp-controller = "Work">Добавить публикацию</button>
+                <form  asp-action = "Add" asp-controller = "Work" method = "get"> 
+                    <button class = "btn btn-outline-dark">Добавить публикацию</button>
+                </form>
             </div>
             <div class = "publications-block">
                 @if(Model.Works.Count == 0)
@@ -86,15 +99,28 @@
                 }
                 else
                 {
-                    @for(int i = 0; i<Model.Works.Count; i++)
+                    @foreach(var work in Model.Works)
                     {
-                        <div class = "publication">
-                            <img />
-                            <div class = "description-block">
-                                <h6>Тема</h6>
-                                <p>Описание</p>
+                        <div class = "work-content">
+                            <div class = "img-content-block">
+                                <a href = "~/Work/Index/@work.Id">
+                                    <img src="@Url.Action("GetImage", "Work", new {id = @work.Image.Id})"/>
+                                </a>
+                                <div class = "small-buttons-block">
+                                    <form asp-action = "Action" asp-controller = "Work" method = "get">
+                                        <input name = "img_id" value = @work.Id type = "hidden"/>                                        
+                                        <button class = "btn btn-outline-dark" name = "action_button" value = "edit">Изменить</button>
+                                        <button class = "btn btn-outline-dark" name = "action_button" value = "delete">Удалить</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div> 
+                            <h3>@work.Name</h3>
+                            @if (work.Theme != null)
+                            {
+                                <h4>@work.Theme.Name</h4>
+                            }
+                            <p>@work.Description</p>
+                        </div>
                     }
                 }
             </div>
